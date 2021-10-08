@@ -4,8 +4,11 @@ use std::fs::OpenOptions;
 
 ///print the working directory 
 fn print_working_directory() -> std::io::Result<()> {
+
      let path = env::current_dir()?;
+
      println!("The working directory is {}", path.display());
+
      Ok(())
 }
 
@@ -18,22 +21,25 @@ pub fn check_for_database() {
     println!("dbcheck = {}", dbcheck);
 
     if dbcheck == true {
+
         println!("DATABASE FOUND");
         let pwd = print_working_directory();
-        pwd;
-        //try to check why the path doesn't exist either it doesn't exist or current permissions
+        drop(pwd);
+
     } else {
+
         println!("No DATABASE FOUND");
         let pwd = print_working_directory();
-        pwd;
-
+        drop(pwd);
     }
 }
 
 
 /// creates an sqlite3 database file or throws an error
 pub fn touch_database_file_or_throw_an_error() {
+
     let file = OpenOptions::new().write(true).create(true).open("db.sqlite3");
-    file;
+
+    drop(file);
 }
 
